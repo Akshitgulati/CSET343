@@ -1,0 +1,23 @@
+[
+  {
+    "modality": "text",
+    "source_path": "sample_note.txt",
+    "checksum_md5": "122df647d4d0f52ce6688071c27b8192",
+    "metadata": {
+      "n_chars": 168,
+      "n_tokens": 26,
+      "top_terms": {
+        "by": 2,
+        "rest": 2,
+        "patient": 1,
+        "reports": 1,
+        "intermittent": 1,
+        "chest": 1,
+        "pain": 1,
+        "radiating": 1,
+        "to": 1,
+        "the": 1
+      }
+    }
+  }
+]
