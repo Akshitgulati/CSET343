@@ -16,16 +16,9 @@ import pydicom
 import nibabel
 
 print("AI in Healthcare - Lab Experiment 1")
-print("All libraries imported successfully!")'''
+print("All libraries imported successfully!")
 
-
-
-
-
-
-
-
-'''import pandas as pd
+import pandas as pd
 import seaborn as sns
 
 # Load the Cleveland Heart Disease dataset
@@ -38,7 +31,7 @@ df = pd.read_csv(
 )
 
 columns = [
-    "age",
+    "age",fb
     "sex",
     "cp",
     "trestbps",
@@ -665,40 +658,10 @@ Features extracted from the different modalities
 can be used together in a future multimodal
 machine learning system.
 """)
+'''
 
 
-# ============================================================
-# STEP 29: LAB COMPLETION
-# ============================================================
-
-print("\nLab Experiment 1 completed successfully.") '''
-
-"""
-Lab Experiment 1: Multimodal Data Ingestion Pipeline
-AI in Healthcare (CSET343)
-
-Implements loader modules for tabular, textual, image, and signal data,
-plus a validator/inspector, a preprocessor, and a simple fusion interface,
-following the modular design described in the lab brief.
-
-Datasets used as examples:
-  - Tabular/Medical : UCI Cleveland Heart Disease dataset (CSV)
-  - Signal          : MIT-BIH Arrhythmia Database (WFDB format, via wfdb-python)
-  - Text            : a small synthetic clinical note
-  - Image           : any local PNG/JPG (placeholder / optional)
-
-Run this as a script, or paste blocks into Colab cells.
-"""
-
-# ============================================================
-# AI IN HEALTHCARE - LAB EXPERIMENT 1
-# ============================================================
-
-
-# ============================================================
-# STEP 1: IMPORT REQUIRED LIBRARIES
-# ============================================================
-
+# LIBRARIES
 import os
 
 import pandas as pd
@@ -725,11 +688,6 @@ from sklearn.metrics import (
 )
 
 
-# ============================================================
-# STEP 2: LOAD TABULAR / MEDICAL DATA
-# UCI Cleveland Heart Disease Dataset
-# ============================================================
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "data", "processed.cleveland.data")
 
@@ -739,10 +697,6 @@ df = pd.read_csv(
     na_values="?"
 )
 
-
-# ============================================================
-# STEP 3: ASSIGN COLUMN NAMES
-# ============================================================
 
 columns = [
     "age",
@@ -767,9 +721,6 @@ print("First 5 rows:")
 print(df.head())
 
 
-# ============================================================
-# STEP 4: INSPECT THE DATASET
-# ============================================================
 
 print("\nDataset shape:")
 print(df.shape)
@@ -781,9 +732,6 @@ print("\nMissing values before preprocessing:")
 print(df.isnull().sum())
 
 
-# ============================================================
-# STEP 5: HANDLE MISSING VALUES
-# ============================================================
 
 df["ca"] = df["ca"].fillna(df["ca"].mode()[0])
 df["thal"] = df["thal"].fillna(df["thal"].mode()[0])
@@ -792,18 +740,11 @@ print("\nMissing values after preprocessing:")
 print(df.isnull().sum())
 
 
-# ============================================================
-# STEP 6: EXPLORATORY DATA ANALYSIS
-# Statistical Summary
-# ============================================================
 
 print("\nStatistical summary:")
 print(df.describe())
 
 
-# ============================================================
-# STEP 7: TARGET DISTRIBUTION
-# ============================================================
 
 print("\nTarget distribution:")
 print(df["target"].value_counts().sort_index())
@@ -821,9 +762,6 @@ plt.savefig(os.path.join(BASE_DIR, "target_distribution.png"))
 plt.show()
 
 
-# ============================================================
-# STEP 8: CORRELATION ANALYSIS
-# ============================================================
 
 correlation = df.corr(numeric_only=True)
 
@@ -831,9 +769,6 @@ print("\nCorrelation matrix:")
 print(correlation)
 
 
-# ============================================================
-# STEP 9: CORRELATION HEATMAP
-# ============================================================
 
 plt.figure(figsize=(12, 8))
 
@@ -850,9 +785,6 @@ plt.savefig(os.path.join(BASE_DIR, "correlation_heatmap.png"))
 plt.show()
 
 
-# ============================================================
-# STEP 10: PREPARE FEATURES AND TARGET
-# ============================================================
 
 X = df.drop("target", axis=1)
 
@@ -865,11 +797,7 @@ print("\nOriginal target:")
 print(y.head())
 
 
-# ============================================================
-# STEP 11: CONVERT TARGET TO BINARY CLASSIFICATION
-# 0 = No heart disease
-# 1 = Heart disease
-# ============================================================
+
 
 y = (y > 0).astype(int)
 
@@ -877,9 +805,8 @@ print("\nBinary target distribution:")
 print(y.value_counts())
 
 
-# ============================================================
-# STEP 12: TRAIN / TEST SPLIT
-# ============================================================
+
+
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -893,10 +820,6 @@ print("\nTraining samples:", X_train.shape[0])
 print("Testing samples:", X_test.shape[0])
 
 
-# ============================================================
-# STEP 13: FEATURE SCALING
-# ============================================================
-
 scaler = StandardScaler()
 
 X_train_scaled = scaler.fit_transform(X_train)
@@ -904,9 +827,7 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 
-# ============================================================
-# STEP 14: TRAIN LOGISTIC REGRESSION MODEL
-# ============================================================
+
 
 model = LogisticRegression(
     max_iter=1000,
@@ -919,18 +840,14 @@ model.fit(
 )
 
 
-# ============================================================
-# STEP 15: MAKE PREDICTIONS
-# ============================================================
+
 
 y_pred = model.predict(X_test_scaled)
 
 y_probability = model.predict_proba(X_test_scaled)[:, 1]
 
 
-# ============================================================
-# STEP 16: CALCULATE ACCURACY
-# ============================================================
+
 
 accuracy = accuracy_score(
     y_test,
@@ -941,9 +858,7 @@ print("\nModel Accuracy:")
 print(accuracy)
 
 
-# ============================================================
-# STEP 17: CALCULATE ROC-AUC
-# ============================================================
+
 
 roc_auc = roc_auc_score(
     y_test,
@@ -954,9 +869,6 @@ print("\nROC-AUC Score:")
 print(roc_auc)
 
 
-# ============================================================
-# STEP 18: CONFUSION MATRIX
-# ============================================================
 
 cm = confusion_matrix(
     y_test,
@@ -977,11 +889,6 @@ plt.savefig(os.path.join(BASE_DIR, "confusion_matrix.png"))
 plt.show()
 
 
-# ============================================================
-# STEP 19: LOAD ECG SIGNAL DATA
-# MIT-BIH Arrhythmia Database
-# Record 100 (fetched directly from PhysioNet)
-# ============================================================
 
 record = wfdb.rdrecord(
     "100",
@@ -1004,9 +911,6 @@ print("\nNumber of ECG Annotations:")
 print(len(annotation.sample))
 
 
-# ============================================================
-# STEP 20: DISPLAY ECG SIGNAL
-# ============================================================
 
 signal_data = record.p_signal[:, 0]
 
@@ -1026,9 +930,6 @@ plt.savefig(os.path.join(BASE_DIR, "ecg_signal.png"))
 plt.show()
 
 
-# ============================================================
-# STEP 21: ECG HEART RATE ANALYSIS
-# ============================================================
 
 annotation_samples = annotation.sample
 
@@ -1057,10 +958,6 @@ else:
     print("\nNot enough ECG annotations for heart-rate calculation.")
 
 
-# ============================================================
-# STEP 22: TEXTUAL DATA
-# Synthetic Clinical Note
-# ============================================================
 
 clinical_note = """
 Patient complains of chest pain and shortness of breath.
@@ -1072,9 +969,7 @@ print("\nClinical Note:")
 print(clinical_note)
 
 
-# ============================================================
-# STEP 23: TEXT TOKENIZATION
-# ============================================================
+
 
 nltk.download(
     "punkt_tab",
@@ -1089,9 +984,6 @@ print("\nTokens:")
 print(tokens)
 
 
-# ============================================================
-# STEP 24: WORD FREQUENCY
-# ============================================================
 
 word_frequency = {}
 
@@ -1117,10 +1009,6 @@ for word, frequency in word_frequency.items():
     )
 
 
-# ============================================================
-# STEP 25: IMAGE DATA
-# Synthetic Medical Image
-# ============================================================
 
 image = Image.new(
     "L",
@@ -1151,9 +1039,6 @@ draw.ellipse(
 )
 
 
-# ============================================================
-# STEP 26: SAVE AND RESIZE IMAGE
-# ============================================================
 
 image_path = os.path.join(
     BASE_DIR, "data", "synthetic_medical_image.png"
@@ -1176,9 +1061,6 @@ print("\nResized Image Size:")
 print(resized_image.size)
 
 
-# ============================================================
-# STEP 27: DISPLAY IMAGE
-# ============================================================
 
 plt.figure(figsize=(6, 6))
 
@@ -1194,10 +1076,6 @@ plt.axis("off")
 plt.savefig(os.path.join(BASE_DIR, "synthetic_image_display.png"))
 plt.show()
 
-
-# ============================================================
-# STEP 28: MULTIMODAL HEALTHCARE DATA INTEGRATION
-# ============================================================
 
 print("\nMultimodal Healthcare Data Integration:")
 
@@ -1228,9 +1106,5 @@ can be used together in a future multimodal
 machine learning system.
 """)
 
-
-# ============================================================
-# STEP 29: LAB COMPLETION
-# ============================================================
 
 print("\nLab Experiment 1 completed successfully.")
